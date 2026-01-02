@@ -277,7 +277,7 @@ export const portfolio = [
       company: "FinTech Client"
     },
     
-    image: "/images/portfolio/fraud-detection.jpg",
+    image: "/images/portfolio/fintech_fraud_dashboard.png",
     featured: true
   },
   
@@ -306,7 +306,7 @@ export const portfolio = [
       company: "Healthcare Network"
     },
     
-    image: "/images/portfolio/healthcare.jpg",
+    image: "/images/portfolio/healthcare_ai_interface.png",
     featured: true
   },
   
@@ -335,7 +335,7 @@ export const portfolio = [
       company: "E-Commerce Client"
     },
     
-    image: "/images/portfolio/ecommerce.jpg",
+    image: "/images/portfolio/ecommerce_analytics_ai.png",
     featured: true
   }
 ];
