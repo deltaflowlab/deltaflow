@@ -117,19 +117,32 @@ function ContactCard({ icon: Icon, label, value, href, delay }: any) {
     )
 }
 
-function CosmicForm() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-    const formRef = useRef<HTMLFormElement>(null)
+import { sendContactEmail } from "@/actions/contact";
+import { useFormStatus } from "react-dom";
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsSubmitting(true)
-        // Simulate network request
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        setIsSubmitting(false)
-        setIsSuccess(true)
-    }
+// ... existing imports ...
+
+function CosmicForm() {
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [serverError, setServerError] = useState<string | null>(null);
+    const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const clientAction = async (formData: FormData) => {
+        setServerError(null);
+        setFormErrors({});
+        
+        const result = await sendContactEmail(null, formData);
+        
+        if (result?.success) {
+            setIsSuccess(true);
+            formRef.current?.reset();
+        } else if (result?.errors) {
+            setFormErrors(result.errors);
+        } else {
+            setServerError(result?.message || "Something went wrong. Please try again.");
+        }
+    };
 
     if (isSuccess) {
         return (
@@ -165,69 +178,110 @@ function CosmicForm() {
             {/* Form Glow */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 relative z-10">
+            <form ref={formRef} action={clientAction} className="space-y-8 relative z-10">
+                {serverError && (
+                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-200 text-sm">
+                        {serverError}
+                    </div>
+                )}
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <CosmicInput label="Identity" placeholder="Full Name" required />
-                    <CosmicInput label="Frequency" placeholder="Email Address" type="email" required />
+                    <CosmicInput 
+                        label="Identity" 
+                        name="name" 
+                        placeholder="Full Name" 
+                        required 
+                        error={formErrors.name?.[0]}
+                    />
+                    <CosmicInput 
+                        label="Frequency" 
+                        name="email" 
+                        placeholder="Email Address" 
+                        type="email" 
+                        required 
+                        error={formErrors.email?.[0]}
+                    />
                 </div>
                 
-                <CosmicInput label="Organization" placeholder="Company Name" />
+                <CosmicInput 
+                    label="Organization" 
+                    name="organization" 
+                    placeholder="Company Name" 
+                    error={formErrors.organization?.[0]}
+                />
                 
                 <div className="space-y-3">
                     <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1">Objective</label>
-                    <select className="w-full bg-white/5 border-b border-white/10 rounded-none px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all duration-300 appearance-none">
-                        <option className="bg-black text-white">AI Strategy & Consulting</option>
-                        <option className="bg-black text-white">Custom Model Development</option>
-                        <option className="bg-black text-white">Infrastructure Engineering</option>
-                        <option className="bg-black text-white">Other Inquiry</option>
+                    <select 
+                        name="objective"
+                        className="w-full bg-white/5 border-b border-white/10 rounded-none px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all duration-300 appearance-none"
+                    >
+                        <option className="bg-black text-white" value="AI Strategy & Consulting">AI Strategy & Consulting</option>
+                        <option className="bg-black text-white" value="Custom Model Development">Custom Model Development</option>
+                        <option className="bg-black text-white" value="Infrastructure Engineering">Infrastructure Engineering</option>
+                        <option className="bg-black text-white" value="Other Inquiry">Other Inquiry</option>
                     </select>
                 </div>
 
                 <div className="space-y-3">
                     <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1">Transmission</label>
                     <textarea 
+                        name="message"
                         rows={4}
                         className="w-full bg-white/5 border-b border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all duration-300 resize-none"
                         placeholder="Project details..."
                         required
                     />
+                     {formErrors.message && (
+                        <p className="text-red-400 text-xs mt-1">{formErrors.message[0]}</p>
+                    )}
                 </div>
 
-                <button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full group relative overflow-hidden rounded-full btn-gradient p-[1px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50"
-                >
-                    <div className="relative bg-black h-full w-full rounded-full px-8 py-4 transition-all duration-300 group-hover:bg-transparent">
-                        <div className="flex items-center justify-center gap-3">
-                            {isSubmitting ? (
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ) : (
-                                <>
-                                    <span className="font-bold text-white tracking-wide uppercase">Initiate Launch</span>
-                                    <Send className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </button>
+                <SubmitButton />
             </form>
         </motion.div>
     )
 }
 
-function CosmicInput({ label, type = "text", placeholder, required }: any) {
+function SubmitButton() {
+    const { pending } = useFormStatus();
+    
+    return (
+        <button 
+            type="submit"
+            disabled={pending}
+            className="w-full group relative overflow-hidden rounded-full btn-gradient p-[1px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50"
+        >
+            <div className="relative bg-black h-full w-full rounded-full px-8 py-4 transition-all duration-300 group-hover:bg-transparent">
+                <div className="flex items-center justify-center gap-3">
+                    {pending ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                        <>
+                            <span className="font-bold text-white tracking-wide uppercase">Initiate Launch</span>
+                            <Send className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </>
+                    )}
+                </div>
+            </div>
+        </button>
+    );
+}
+
+function CosmicInput({ label, name, type = "text", placeholder, required, error }: any) {
     return (
         <div className="space-y-3 group">
             <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1 group-focus-within:text-blue-400 transition-colors">
                 {label} {required && <span className="text-red-400">*</span>}
             </label>
             <input 
+                name={name}
                 type={type}
                 placeholder={placeholder}
                 required={required}
                 className="w-full bg-transparent border-b border-white/10 px-4 py-2 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/5 transition-all duration-300 rounded-t-lg"
             />
+            {error && <p className="text-red-400 text-xs">{error}</p>}
         </div>
     )
 }
