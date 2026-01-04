@@ -21,8 +21,8 @@
   }
 
   /* Brand Colors - Adjusted for "Terminal" aesthetic */
-  --color-brand-green: #22c55e; /* Brighter neon green for dark bg */
-  --color-brand-dark-green: #14532d;
+  --color-brand-green: #fbbf24; /* Golden Amber (User requested) */
+  --color-brand-dark-green: #78350f; /* Amber 900 for depth */
   --color-brand-red: #ef4444;
   
   /* Extended Grays - Stealth & Technical */

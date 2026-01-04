@@ -39,7 +39,7 @@ export function Navigation() {
                 className={cn(
                   "relative text-xs font-mono font-medium tracking-widest uppercase transition-all duration-200",
                   isActive
-                    ? "text-[--brand-green] shadow-[0_0_20px_rgba(34,197,94,0.3)]"
+                    ? "text-[--brand-green] shadow-[0_0_20px_rgba(251,191,36,0.3)]"
                     : "text-gray-400 hover:text-white"
                 )}
               >

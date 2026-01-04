@@ -1,144 +1,119 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion"
 import { services } from "@/lib/data"
 import { CTABanner } from "@/components/layout/CTABanner"
-import { cn } from "@/lib/utils"
-import { Brain, Shield, Cpu, Globe, ArrowRight, Database, Code } from "lucide-react" // Importing icons to map dynamically
-
-// Map icons to services (assuming order or IDs)
-const iconMap: Record<string, any> = {
-  "ai-strategy": Brain,
-  "custom-development": Code,
-  "infrastructure": Database,
-  "scaling": Globe // Fallback or specific mapping
-}
+import { Button } from "@/components/ui/Button"
+import { CheckCircle2, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { motion } from "framer-motion"
 
 export default function ServicesPage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-  })
-
   return (
-    <div className="bg-black relative">
+    <div className="bg-black min-h-screen">
        {/* Hero Section */}
-       <div className="h-[50vh] flex flex-col items-center justify-center border-b border-white/10 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-black to-black" />
-          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-          
-          <div className="relative z-10 text-center px-4">
-            <motion.div
-               initial={{ opacity: 0, y: 30 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.8 }}
-            >
-                <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-900/10 backdrop-blur-md">
-                     <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                     <span className="text-xs font-mono text-blue-400 tracking-widest uppercase">
-                        System Modules
-                     </span>
-                </div>
-                <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-4">
-                   CORE <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">SYSTEMS</span>
-                </h1>
-                <p className="text-xl text-blue-200/60 font-light max-w-2xl mx-auto">
-                   Advanced neural architectures for enterprise deployment.
-                </p>
-            </motion.div>
+       <section className="relative py-32 overflow-hidden border-b border-white/10">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+             <img 
+               src="/images/services_hero_bg.png" 
+               alt="Services Background" 
+               className="w-full h-full object-cover opacity-40"
+             />
+             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
           </div>
-       </div>
-
-       {/* Horizontal Scroll Deck */}
-       <section ref={containerRef} className="relative h-[400vh] bg-black">
-          <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-             
-             {/* Background Context */}
-             <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-3xl animate-pulse" />
+          
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+             <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                 <span className="w-2 h-2 rounded-full bg-[--brand-green] animate-pulse" />
+                 <span className="text-xs font-mono text-gray-400 tracking-widest uppercase">
+                    Our Expertise
+                 </span>
              </div>
-
-             <motion.div 
-                style={{ x: useTransform(scrollYProgress, [0, 1], ["0%", "-85%"]) }} 
-                className="flex gap-12 sm:gap-24 px-12 sm:px-24"
-             >
-                {services.map((service, index) => (
-                   <ServiceCard key={service.id} service={service} index={index} />
-                ))}
-             </motion.div>
+             
+             <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-amber-100 to-amber-600 mb-8 max-w-5xl mx-auto leading-[1.1] drop-shadow-[0_0_25px_rgba(251,191,36,0.3)]">
+               INTELLIGENT <br className="hidden md:block" /> SYSTEMS
+             </h1>
+             <p className="text-xl text-amber-100/60 font-light max-w-2xl mx-auto leading-relaxed">
+               We build production-grade AI solutions that solve complex business challenges.
+             </p>
           </div>
        </section>
 
+       {/* Services List */}
+       <section className="py-32 space-y-32">
+          {services.map((service, index) => (
+             <div key={service.id} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className={`flex flex-col gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+                   
+                   {/* Visual Side */}
+                   <div className="w-full lg:w-1/2">
+                      <div className="relative aspect-square md:aspect-[4/3] w-full bg-white/5 rounded-3xl border border-white/10 overflow-hidden group">
+                         {/* Static Standard Image - Full Cover */}
+                         {service.image && (
+                            <div className="relative w-full h-full transition-transform duration-700 group-hover:scale-105">
+                                <img 
+                                   src={service.image}
+                                   alt={service.name}
+                                   className="w-full h-full object-cover"
+                                />
+                                {/* Overlay gradient for text readability if needed, or just style */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                         )}
+                      </div>
+                   </div>
+
+                   {/* Content Side */}
+                   <div className="w-full lg:w-1/2">
+                      <div className="space-y-8">
+                         <div>
+                            <span className="text-[--brand-green] font-mono text-xs uppercase tracking-widest mb-4 block">
+                               0{index + 1} / {service.slug.replace('-', ' ')}
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+                               {service.name}
+                            </h2>
+                            <p className="text-xl text-gray-400 font-light leading-relaxed">
+                               {service.tagline}
+                            </p>
+                         </div>
+                         
+                         <p className="text-gray-400 leading-relaxed text-lg border-l-2 border-[--brand-green]/30 pl-6">
+                            {service.description}
+                         </p>
+
+                         {/* Benefits Grid */}
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            {service.benefits?.slice(0, 4).map((benefit) => (
+                               <div key={benefit} className="flex items-start gap-3">
+                                  <CheckCircle2 className="h-5 w-5 text-[--brand-green] flex-shrink-0 mt-0.5" />
+                                  <span className="text-sm text-gray-300">{benefit}</span>
+                               </div>
+                            ))}
+                         </div>
+
+                         <div className="pt-4">
+                            <Button size="lg" className="bg-white text-black hover:bg-gray-200 group" asChild>
+                               <Link href={`/services/${service.slug}`}>
+                                  Explore Service
+                                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                               </Link>
+                            </Button>
+                         </div>
+                      </div>
+                   </div>
+
+                </div>
+             </div>
+          ))}
+       </section>
+
        <CTABanner 
-         headline="Initialize Deployment"
-         description="Integrate these systems into your infrastructure."
-         primaryCTA="Start Project"
+         headline="Ready to Transform?"
+         description="Let's build the future of your business together."
+         primaryCTA="Start Your Project"
+         primaryHref="/contact"
        />
     </div>
   )
-}
-
-function ServiceCard({ service, index }: { service: any, index: number }) {
-    const Icon = iconMap[service.id] || Brain
-    
-    return (
-        <div className="relative w-[85vw] md:w-[60vw] max-w-4xl h-[70vh] flex-shrink-0 group perspective-1000">
-            <div className="relative h-full w-full bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_50px_rgba(59,130,246,0.1)] flex flex-col md:flex-row">
-                
-                {/* Visual Side (Left/Top) */}
-                <div className="w-full md:w-2/5 h-1/3 md:h-full relative overflow-hidden bg-gradient-to-b from-blue-900/10 to-black border-b md:border-b-0 md:border-r border-white/5 p-8 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                    
-                    {/* Floating Holographic Icon */}
-                    <motion.div 
-                        className="relative z-10"
-                        animate={{ y: [0, -20, 0], rotateY: [0, 180, 360] }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    >
-                        <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border border-blue-500/30 flex items-center justify-center bg-blue-500/5 backdrop-blur-sm shadow-[0_0_30px_rgba(59,130,246,0.2)]">
-                            <Icon className="w-16 h-16 md:w-24 md:h-24 text-blue-400 stroke-[1]" />
-                        </div>
-                    </motion.div>
-
-                    {/* Number */}
-                    <div className="absolute bottom-4 left-4 text-6xl md:text-9xl font-bold text-white/5 font-mono">
-                        0{index + 1}
-                    </div>
-                </div>
-
-                {/* Content Side (Right/Bottom) */}
-                <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-between relative bg-white/[0.02]">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
-                    
-                    <div className="relative z-10 space-y-6">
-                        <div>
-                            <span className="text-blue-500 font-mono text-xs uppercase tracking-widest mb-2 block">System // {service.id}</span>
-                            <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{service.name}</h3>
-                        </div>
-                        <p className="text-lg md:text-xl text-blue-100/70 font-light leading-relaxed">
-                            {service.tagline}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-3">
-                            {service.benefits.map((benefit: string) => (
-                                <span key={benefit} className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-blue-200/60 font-mono">
-                                    {benefit}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="relative z-10 pt-8">
-                        <div className="h-px w-full bg-gradient-to-r from-blue-500/50 to-transparent mb-6" />
-                        <button className="group/btn flex items-center gap-4 text-white hover:text-blue-400 transition-colors">
-                            <span className="text-sm font-bold uppercase tracking-widest">Access Protocol</span>
-                            <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    )
 }

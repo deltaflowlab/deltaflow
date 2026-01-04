@@ -42,7 +42,7 @@ export function NeuralBackground() {
         this.speed = Math.random() * 1 + 0.5
         this.angle = 0
         this.timer = this.maxLength * 2
-        this.color = Math.random() > 0.8 ? "#22c55e" : "#14532d" // Brand green mix
+        this.color = Math.random() > 0.8 ? "#fbbf24" : "#78350f" // Brand gold mix
       }
 
       reset() {
