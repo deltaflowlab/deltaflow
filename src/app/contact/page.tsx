@@ -246,24 +246,29 @@ function CosmicForm() {
                 />
                 
                 <div className="space-y-3">
-                    <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1">Objective</label>
-                    <select 
-                        name="objective"
-                        className="w-full bg-white/5 border-b border-white/10 rounded-none px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all duration-300 appearance-none"
-                    >
-                        <option className="bg-black text-white" value="AI Strategy & Consulting">AI Strategy & Consulting</option>
-                        <option className="bg-black text-white" value="Custom Model Development">Custom Model Development</option>
-                        <option className="bg-black text-white" value="Infrastructure Engineering">Infrastructure Engineering</option>
-                        <option className="bg-black text-white" value="Other Inquiry">Other Inquiry</option>
-                    </select>
+                    <label className="text-xs font-mono text-blue-200 uppercase tracking-widest ml-1">Objective</label>
+                    <div className="relative">
+                        <select 
+                            name="objective"
+                            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500 focus:bg-white/15 transition-all duration-300 appearance-none"
+                        >
+                            <option className="bg-zinc-900 text-white" value="AI Strategy & Consulting">AI Strategy & Consulting</option>
+                            <option className="bg-zinc-900 text-white" value="Custom Model Development">Custom Model Development</option>
+                            <option className="bg-zinc-900 text-white" value="Infrastructure Engineering">Infrastructure Engineering</option>
+                            <option className="bg-zinc-900 text-white" value="Other Inquiry">Other Inquiry</option>
+                        </select>
+                         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/50">
+                            <ArrowRight className="w-4 h-4 rotate-90" />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="space-y-3">
-                    <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1">Transmission</label>
+                    <label className="text-xs font-mono text-blue-200 uppercase tracking-widest ml-1">Transmission</label>
                     <textarea 
                         name="message"
                         rows={4}
-                        className="w-full bg-white/5 border-b border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all duration-300 resize-none"
+                        className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500 focus:bg-white/15 transition-all duration-300 resize-none"
                         placeholder="Project details..."
                         required
                     />
@@ -285,9 +290,9 @@ function SubmitButton() {
         <button 
             type="submit"
             disabled={pending}
-            className="w-full group relative overflow-hidden rounded-full btn-gradient p-[1px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50"
+            className="w-full group relative overflow-hidden rounded-xl btn-gradient p-[1px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 mt-4"
         >
-            <div className="relative bg-black h-full w-full rounded-full px-8 py-4 transition-all duration-300 group-hover:bg-transparent">
+            <div className="relative bg-black h-full w-full rounded-xl px-8 py-4 transition-all duration-300 group-hover:bg-transparent">
                 <div className="flex items-center justify-center gap-3">
                     {pending ? (
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -306,7 +311,7 @@ function SubmitButton() {
 function CosmicInput({ label, name, type = "text", placeholder, required, error }: any) {
     return (
         <div className="space-y-3 group">
-            <label className="text-xs font-mono text-blue-300/50 uppercase tracking-widest ml-1 group-focus-within:text-blue-400 transition-colors">
+            <label className="text-xs font-mono text-blue-200 uppercase tracking-widest ml-1 group-focus-within:text-blue-400 transition-colors">
                 {label} {required && <span className="text-red-400">*</span>}
             </label>
             <input 
@@ -314,7 +319,7 @@ function CosmicInput({ label, name, type = "text", placeholder, required, error 
                 type={type}
                 placeholder={placeholder}
                 required={required}
-                className="w-full bg-transparent border-b border-white/10 px-4 py-2 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:bg-white/5 transition-all duration-300 rounded-t-lg"
+                className="w-full bg-white/10 border border-white/20 px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500 focus:bg-white/15 transition-all duration-300 rounded-lg"
             />
             {error && <p className="text-red-400 text-xs">{error}</p>}
         </div>
