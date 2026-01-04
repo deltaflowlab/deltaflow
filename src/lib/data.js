@@ -53,6 +53,10 @@ export const navigation = {
       href: "/services/generative-ai",
       description: "Custom LLM agents and content pipelines"
     }
+  ],
+  legal: [
+    { name: "Terms & Conditions", href: "/terms" },
+    { name: "Privacy Policy", href: "/privacy" }
   ]
 };
 
@@ -751,4 +755,107 @@ export const contactForm = {
     { value: "flexible", label: "3-6 months" },
     { value: "exploring", label: "Just Exploring" }
   ]
+};
+
+// ======================
+// LEGAL CONTENT
+// ======================
+export const legalContent = {
+  terms: {
+    title: "Terms and Conditions",
+    lastUpdated: "January 4, 2026",
+    intro: "Welcome to DeltaFlow. These Terms and Conditions (\"Terms\") govern your access to and use of our website, services, and AI solutions. By engaging with DeltaFlow, you agree to comply with these Terms.",
+    sections: [
+      {
+        title: "1. Services",
+        content: [
+          "DeltaFlow provides custom AI development, consulting, and automation services. The specific scope of work, deliverables, and timelines for client projects will be defined in separate Statements of Work (SOW) or Master Services Agreements (MSA). In the event of a conflict between these Terms and a specific SOW/MSA, the specific agreement shall prevail."
+        ]
+      },
+      {
+        title: "2. Intellectual Property",
+        content: [
+          "<strong>2.1 Client Ownership.</strong> Unless otherwise agreed in writing, clients retain full ownership of all intellectual property rights in the custom code, models, and deliverables created specifically for them upon full payment of fees.",
+          "<strong>2.2 DeltaFlow Tools.</strong> DeltaFlow retains ownership of its pre-existing tools, libraries, frameworks, and methodologies (\"DeltaFlow IP\") used to deliver services. Clients are granted a non-exclusive, perpetual, royalty-free license to use incorporated DeltaFlow IP solely for their internal business operations."
+        ]
+      },
+      {
+        title: "3. Confidentiality",
+        content: [
+          "We take confidentiality seriously. Both parties agree to protect proprietary information exchanged during the engagement. We often execute separate Non-Disclosure Agreements (NDAs) which supersede this general provision."
+        ]
+      },
+      {
+        title: "4. Limitation of Liability",
+        content: [
+          "To the maximum extent permitted by law, DeltaFlow shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues. Our total liability for any claim arising out of these services shall not exceed the total amount paid by the client for the specific service giving rise to the claim."
+        ]
+      },
+      {
+        title: "5. Payment Terms",
+        content: [
+          "Invoices are due within the timeframe specified in your contract (typically Net 15 or Net 30). Late payments may incur interest. We reserve the right to suspend services for overdue accounts."
+        ]
+      },
+      {
+        title: "6. Changes to Terms",
+        content: [
+          "We reserve the right to modify these Terms at any time. Significant changes will be communicated through our website or direct notice to active clients."
+        ]
+      },
+      {
+        title: "7. Governing Law",
+        content: [
+          "These Terms shall be governed by and construed in accordance with the laws of Bangladesh, without regard to its conflict of law principles."
+        ]
+      }
+    ]
+  },
+  privacy: {
+    title: "Privacy Policy",
+    lastUpdated: "January 4, 2026",
+    intro: "At DeltaFlow, we respect your privacy and are committed to protecting the personal data we process. This Privacy Policy explains how we collect, use, and safeguard information when you visit our website or engage our services.",
+    sections: [
+      {
+        title: "1. Information We Collect",
+        content: [
+          "<strong>1.1 Personal Information.</strong> We may collect personal information such as your name, email address, phone number, and company details when you fill out our contact forms, subscribe to newsletters, or request a consultation.",
+          "<strong>1.2 Usage Data.</strong> We automatically collect certain information when you visit our site, including IP addresses, browser type, and interaction data, to analyze performance and improve user experience."
+        ]
+      },
+      {
+        title: "2. How We Use Your Information",
+        content: [
+          "To provide and deliver our services.",
+          "To communicate with you about projects, updates, and inquiries.",
+          "To send relevant industry insights or marketing communications (you can opt-out at any time).",
+          "To analyze website traffic and optimize our content."
+        ]
+      },
+      {
+        title: "3. Data Security",
+        content: [
+          "We implement industry-standard security measures to protect your data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure."
+        ]
+      },
+      {
+        title: "4. Data Sharing",
+        content: [
+          "We do not sell your personal data. We may share information with trusted third-party service providers who assist us in operating our website or conducting our business (e.g., cloud hosting, email services), provided they agree to keep this information confidential."
+        ]
+      },
+      {
+        title: "5. Your Rights",
+        content: [
+          "Depending on your jurisdiction, you may have the right to access, correct, or delete your personal data. To exercise these rights, please contact us at the email below."
+        ]
+      },
+      {
+        title: "6. Cookies",
+        content: [
+          "We use cookies to enhance your browsing experience. You can choose to disable cookies through your browser settings, though this may affect some website functionality."
+        ]
+      }
+    ]
+  }
 };

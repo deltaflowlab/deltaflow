@@ -59,16 +59,13 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/privacy" className="text-sm text-[--color-gray-400] hover:text-[--brand-green]">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm text-[--color-gray-400] hover:text-[--brand-green]">
-                  Terms of Service
-                </Link>
-              </li>
+              {navigation.legal.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-[--color-gray-400] hover:text-[--brand-green]">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

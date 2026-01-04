@@ -44,7 +44,7 @@ export function Hero({ headline, subheadline, primaryCTA, secondaryCTA }: HeroPr
           </motion.div>
           
           {/* Main Headline - Massive & Tight */}
-          <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold tracking-tighter text-white mb-8 leading-[0.9] drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+          <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold tracking-tighter text-white mb-8 leading-[0.9] ">
             {/* Split headline for visual impact if needed, or keeping it as prop */}
             DeltaFlow
           </h1>
