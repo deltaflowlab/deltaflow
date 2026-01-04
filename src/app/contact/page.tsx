@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Phone, MapPin, Send, CheckCircle2, ArrowRight } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle2, ArrowRight, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { contactForm, siteConfig } from "@/lib/data"
 
@@ -56,25 +56,36 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-6">
+                    {/* Priority Access - Meeting Scheduler (Moved to Top) */}
+                    <ContactCard 
+                        icon={Calendar} 
+                        label="Priority Access" 
+                        value="Book Consultation" 
+                        href="https://calendar.app.google/yC5E8m48mVPj9XjT7" 
+                        isExternal
+                        isFeatured
+                        delay={0.3}
+                    />
+
                     <ContactCard 
                         icon={Mail} 
                         label="Encrypted Mail" 
                         value={siteConfig.email} 
                         href={`mailto:${siteConfig.email}`}
-                        delay={0.3}
+                        delay={0.4}
                     />
                     <ContactCard 
                         icon={Phone} 
                         label="Secure Line" 
                         value={siteConfig.phone} 
                         href={`tel:${siteConfig.phone}`}
-                        delay={0.4}
+                        delay={0.5}
                     />
                     <ContactCard 
                         icon={MapPin} 
                         label="Command Base" 
                         value={`${siteConfig.address.city}, ${siteConfig.address.country}`} 
-                        delay={0.5}
+                        delay={0.6}
                     />
                 </div>
             </div>
@@ -90,28 +101,52 @@ export default function ContactPage() {
   )
 }
 
-function ContactCard({ icon: Icon, label, value, href, delay }: any) {
+function ContactCard({ icon: Icon, label, value, href, delay, isExternal, isFeatured }: any) {
     return (
         <motion.a 
             href={href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay }}
             className={cn(
-                "group block relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300",
-                href ? "hover:border-blue-500/50 hover:bg-blue-900/10 cursor-pointer" : "cursor-default"
+                "group block relative p-6 rounded-2xl backdrop-blur-sm overflow-hidden transition-all duration-300",
+                isFeatured 
+                    ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border border-blue-400/50 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]" 
+                    : "bg-white/5 border border-white/10",
+                href ? "cursor-pointer" : "cursor-default",
+                !isFeatured && href && "hover:border-blue-500/50 hover:bg-blue-900/10"
             )}
         >
+            {/* Featured Glow */}
+            {isFeatured && <div className="absolute inset-0 bg-blue-500/10 animate-pulse pointer-events-none" />}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             <div className="relative z-10 flex items-center gap-6">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30 group-hover:scale-110 transition-transform duration-500">
-                    <Icon className="w-5 h-5 text-blue-400" />
+                <div className={cn(
+                    "w-12 h-12 rounded-full flex items-center justify-center border transition-transform duration-500 group-hover:scale-110",
+                    isFeatured 
+                        ? "bg-blue-500 text-white border-blue-400 shadow-lg shadow-blue-500/30" 
+                        : "bg-blue-500/20 border-blue-500/30"
+                )}>
+                    <Icon className={cn("w-5 h-5", isFeatured ? "text-white" : "text-blue-400")} />
                 </div>
                 <div>
-                    <div className="text-xs font-mono text-blue-500/70 tracking-widest uppercase mb-1">{label}</div>
-                    <div className="text-lg text-white font-medium group-hover:text-blue-200 transition-colors">{value}</div>
+                    <div className={cn(
+                        "text-xs font-mono tracking-widest uppercase mb-1",
+                        isFeatured ? "text-blue-300" : "text-blue-500/70"
+                    )}>{label}</div>
+                    <div className={cn(
+                        "text-lg font-medium transition-colors",
+                        isFeatured ? "text-white font-bold" : "text-white group-hover:text-blue-200"
+                    )}>{value}</div>
                 </div>
+                {isExternal && (
+                     <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ArrowRight className={cn("-rotate-45 w-5 h-5", isFeatured ? "text-white" : "text-blue-400")} />
+                     </div>
+                )}
             </div>
         </motion.a>
     )

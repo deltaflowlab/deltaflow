@@ -68,51 +68,7 @@ export function CTABanner({
   )
 }
 
-function MagneticButton({ children, href, variant }: { children: React.ReactNode, href: string, variant: 'primary' | 'secondary' }) {
-    const ref = useRef<HTMLAnchorElement>(null)
-    const x = useMotionValue(0)
-    const y = useMotionValue(0)
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const { clientX, clientY } = e
-        const { left, top, width, height } = ref.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 }
-        const center = { x: left + width / 2, y: top + height / 2 }
-        x.set((clientX - center.x) * 0.35)
-        y.set((clientY - center.y) * 0.35)
-    }
-
-    const handleMouseLeave = () => {
-        x.set(0)
-        y.set(0)
-    }
-
-    return (
-        <motion.div style={{ x, y }}>
-            <Link 
-                ref={ref}
-                href={href}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className={cn(
-                    "relative overflow-hidden group px-8 py-4 rounded-full min-w-[180px] inline-flex items-center justify-center text-lg font-medium transition-all duration-300",
-                    variant === 'primary' 
-                        ? "bg-white text-black hover:bg-blue-50" 
-                        : "bg-black text-white border border-white/20 hover:border-white/50"
-                )}
-            >
-                <div className="relative z-10 flex items-center gap-2">
-                    {children}
-                    {variant === 'primary' && (
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    )}
-                </div>
-                
-                {/* Hover Glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-blue-500/10 to-indigo-500/10" />
-            </Link>
-        </motion.div>
-    )
-}
+import { MagneticButton } from "@/components/ui/MagneticButton"
 
 function WarpSpeedBackground() {
     return (

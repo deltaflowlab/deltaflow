@@ -7,14 +7,17 @@ import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import Link from "next/link"
 
+import { use } from "react"
+
 export function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }))
 }
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = services.find((s) => s.slug === params.slug)
+export default function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params)
+  const service = services.find((s) => s.slug === slug)
 
   if (!service) {
     notFound()

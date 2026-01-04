@@ -25,6 +25,7 @@ export default function Home() {
           description="We bring AI expertise to solve your toughest business challenges"
           services={services.map(s => ({
             icon: s.icon,
+            image: s.image,
             title: s.name,
             description: s.description,
             link: `/services/${s.slug}`

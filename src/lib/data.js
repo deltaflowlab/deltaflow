@@ -25,6 +25,7 @@ export const siteConfig = {
 // ======================
 export const navigation = {
   main: [
+    { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
     { name: "Portfolio", href: "/work" },
     { name: "Process", href: "/how-we-work" },
@@ -63,6 +64,7 @@ export const services = [
     longDescription: "Our team of AI engineers designs, develops, and deploys production-ready AI systems. From NLP applications to computer vision solutions, we handle the entire development lifecycle.",
     
     icon: "Cpu", // Lucide icon name
+    image: "/images/services/ai-product.png",
     
     benefits: [
       "End-to-end AI product development",
@@ -111,6 +113,7 @@ export const services = [
     longDescription: "We design and implement custom automation solutions that integrate AI with your existing workflows, reducing manual effort and improving accuracy.",
     
     icon: "Workflow",
+    image: "/images/services/automation.png",
     
     benefits: [
       "70% reduction in manual processing time",
@@ -159,6 +162,7 @@ export const services = [
     longDescription: "We help organizations develop AI strategies, assess feasibility, and create roadmaps for successful AI adoption.",
     
     icon: "Lightbulb",
+    image: "/images/services/consulting.png",
     
     benefits: [
       "Clear AI roadmap aligned with business goals",
@@ -207,6 +211,7 @@ export const services = [
     longDescription: "We build tailored generative AI models that can create text, code, images, and audio, integrated seamlessly into your creative workflows.",
     
     icon: "Sparkles",
+    image: "/images/services/gen-ai.png",
     
     benefits: [
       "Custom LLM Fine-tuning",

@@ -9,6 +9,7 @@ interface ServiceGridProps {
   description: string
   services: Array<{
     icon: string
+    image?: string
     title: string
     description: string
     link: string
@@ -16,14 +17,6 @@ interface ServiceGridProps {
 }
 
 export function ServiceGrid({ headline, description, services }: ServiceGridProps) {
-  // Mapping service index to generated assets
-  const bentoAssets = [
-    "/images/generated/xai_neural_glass_1767324020718.png",
-    "/images/generated/bento_flow_automation_1767322620453.png",
-    "/images/generated/bento_compass_strategy_1767322639280.png",
-    "/images/generated/xai_neural_glass_1767324020718.png" 
-  ];
-
   return (
     <section className="bg-black py-24 sm:py-32 relative overflow-hidden">
       {/* Background glow for ambience */}
@@ -49,7 +42,6 @@ export function ServiceGrid({ headline, description, services }: ServiceGridProp
             // Row 2: [Narrow 1/3] [Wide 2/3]
             // Logic: Indices 0 and 3 are wide. Indices 1 and 2 are narrow.
             const isWide = index % 4 === 0 || index % 4 === 3;
-            const asset = bentoAssets[index % bentoAssets.length];
 
             return (
               <ScrollReveal 
@@ -90,11 +82,13 @@ export function ServiceGrid({ headline, description, services }: ServiceGridProp
                   <div className={`absolute z-10 transition-transform duration-700 group-hover:scale-110 
                       ${isWide ? 'top-0 right-0 h-full w-3/4 opacity-60 translate-x-[20%]' : 'top-0 right-0 h-3/4 w-full opacity-50 -translate-y-[10%] translate-x-[20%]'}
                   `}>
-                     <img 
-                       src={asset} 
-                       alt={service.title}
-                       className="w-full h-full object-contain"
-                     />
+                     {service.image && (
+                       <img 
+                         src={service.image} 
+                         alt={service.title}
+                         className="w-full h-full object-contain"
+                       />
+                     )}
                   </div>
                   
                   {/* Glass Reflection */}

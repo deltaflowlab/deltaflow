@@ -30,20 +30,29 @@ export function Navigation() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          {navigation.main.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "text-xs font-mono font-medium tracking-widest uppercase transition-colors hover:text-white",
-                pathname === item.href
-                  ? "text-white"
-                  : "text-[--color-gray-400]"
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.main.map((item) => {
+            const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative text-xs font-mono font-medium tracking-widest uppercase transition-all duration-200",
+                  isActive
+                    ? "text-[--brand-green] shadow-[0_0_20px_rgba(34,197,94,0.3)]"
+                    : "text-gray-400 hover:text-white"
+                )}
+              >
+                {item.name}
+                {isActive && (
+                    <motion.div 
+                        layoutId="nav-pill"
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[--brand-green]"
+                    />
+                )}
+              </Link>
+            )
+          })}
           <div className="pl-4 border-l border-white/10">
               <Link 
                   href="/contact" 
@@ -73,20 +82,25 @@ export function Navigation() {
             className="border-b border-white/10 bg-black md:hidden overflow-hidden"
           >
             <nav className="flex flex-col p-4 gap-4">
-              {navigation.main.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "text-base font-mono font-medium transition-colors hover:text-white",
-                    pathname === item.href
-                      ? "text-white"
-                      : "text-[--color-gray-400]"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.main.map((item) => {
+                const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "text-base font-mono font-medium transition-colors flex items-center justify-between group",
+                      isActive
+                        ? "text-[--brand-green]"
+                        : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    {item.name}
+                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-[--brand-green]" />}
+                  </Link>
+                )
+              })}
               <Button className="w-full" asChild>
                 <Link href="/contact">Start Project</Link>
               </Button>

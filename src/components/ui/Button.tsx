@@ -17,7 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = "inline-flex items-center justify-center rounded-full font-mono font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[--color-gray-400] disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] tracking-wide"
     
     const variants = {
-      primary: "bg-white text-black hover:bg-[--color-gray-200] hover:text-white border border-transparent hover:border-[--color-gray-500]", // x.ai style: white pill or ghost
+      primary: "bg-white text-black hover:bg-blue-50 hover:text-black hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] border border-transparent", // Sticky/Magnetic style
       secondary: "bg-[--color-gray-100] text-white hover:bg-[--color-gray-200] border border-[--color-gray-200]",
       outline: "border border-[--color-gray-200] bg-transparent text-white hover:bg-white/5 hover:border-white/20", // The signature look
       ghost: "bg-transparent text-[--color-gray-400] hover:text-white hover:bg-white/5"
