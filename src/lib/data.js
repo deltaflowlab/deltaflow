@@ -85,6 +85,18 @@ export const services = [
       {
         title: "Predictive Analytics",
         description: "ML models that forecast trends and optimize decision-making"
+      },
+      {
+        title: "Recommendation Engines",
+        description: "Personalized content and product delivery systems that boost conversion"
+      },
+      {
+        title: "Computer Vision Systems",
+        description: "Automated quality control and visual inspection solutions"
+      },
+      {
+        title: "Voice AI Agents",
+        description: "Human-like voice assistants for customer service and navigation"
       }
     ],
     
@@ -134,6 +146,18 @@ export const services = [
       {
         title: "Data Pipeline Automation",
         description: "Intelligent ETL processes with anomaly detection"
+      },
+      {
+        title: "HR & Onboarding Automation",
+        description: "Streamlined employee onboarding and documentation workflows"
+      },
+      {
+        title: "Supply Chain Optimization",
+        description: "Automated inventory management and logistics routing"
+      },
+      {
+        title: "Automated Reporting Systems",
+        description: "Self-generating business intelligence reports and dashboards"
       }
     ],
     
@@ -183,6 +207,18 @@ export const services = [
       {
         title: "Technical Due Diligence",
         description: "Review AI vendors or evaluate acquisition targets"
+      },
+      {
+        title: "Data Governance Frameworks",
+        description: "Establishing protocols for secure and compliant data management"
+      },
+      {
+        title: "MLOps Strategy Design",
+        description: "Blueprints for scalable model training and deployment infrastructure"
+      },
+      {
+        title: "AI Ethics & Compliance",
+        description: "Ensuring your AI systems meet regulatory reliability standards"
       }
     ],
     
@@ -232,6 +268,18 @@ export const services = [
       {
         title: "Knowledge Retrieval",
         description: "Chat with your company's entire knowledge base"
+      },
+      {
+        title: "Personalized Video Generation",
+        description: "AI-generated video content customized for individual users"
+      },
+      {
+        title: "Synthetic Data Creation",
+        description: "Generating privacy-compliant datasets for model training"
+      },
+      {
+        title: "Dynamic UI Generation",
+        description: "Interfaces that adapt in real-time to user intent and context"
       }
     ],
     
