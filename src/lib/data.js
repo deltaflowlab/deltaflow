@@ -47,6 +47,11 @@ export const navigation = {
       name: "AI Consulting",
       href: "/services/ai-consulting",
       description: "Strategic guidance for AI adoption"
+    },
+    {
+      name: "Generative AI",
+      href: "/services/generative-ai",
+      description: "Custom LLM agents and content pipelines"
     }
   ]
 };
